@@ -1,0 +1,284 @@
+/* GlassBlue: dark glassmorphism theme with blue accents */
+
+:root {
+	--glass-tint: rgba(var(--spice-rgb-main-elevated), 0.28);
+	--glass-tint-strong: rgba(var(--spice-rgb-main-elevated), 0.6);
+	--glass-sheen: linear-gradient(135deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.015) 45%, rgba(255, 255, 255, 0.04));
+	--glass-border: rgba(255, 255, 255, 0.12);
+	--glass-border-soft: rgba(255, 255, 255, 0.06);
+	--glass-fill: rgba(255, 255, 255, 0.05);
+	--glass-fill-hover: rgba(255, 255, 255, 0.1);
+	--glass-blur: blur(28px) saturate(180%);
+	--glass-radius: 16px;
+	--glass-shadow: 0 10px 40px rgba(var(--spice-rgb-shadow), 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* Glowing blobs behind every panel, so the blur has something to show */
+body,
+.Root__top-container {
+	background:
+		radial-gradient(40vw 40vw at 8% 15%, rgba(var(--spice-rgb-button), 0.55), transparent 70%),
+		radial-gradient(35vw 35vw at 92% 8%, rgba(var(--spice-rgb-button-active), 0.4), transparent 70%),
+		radial-gradient(45vw 45vw at 55% 105%, rgba(var(--spice-rgb-notification), 0.5), transparent 70%),
+		radial-gradient(30vw 30vw at 45% 40%, rgba(var(--spice-rgb-tab-active), 0.45), transparent 70%),
+		var(--spice-main) !important;
+	background-attachment: fixed !important;
+}
+
+/* Glass panels */
+.Root__nav-bar,
+.Root__main-view,
+.Root__right-sidebar,
+.Root__now-playing-bar {
+	background: var(--glass-sheen), var(--glass-tint) !important;
+	backdrop-filter: var(--glass-blur);
+	-webkit-backdrop-filter: var(--glass-blur);
+	border: 1px solid var(--glass-border);
+	border-radius: var(--glass-radius);
+	box-shadow: var(--glass-shadow);
+	overflow: hidden;
+}
+
+/* Inner layers must be transparent or they hide the glass */
+.Root__nav-bar > *,
+.Root__right-sidebar > *,
+.main-yourLibraryX-libraryContainer,
+.main-yourLibraryX-library,
+.main-view-container,
+.main-view-container__scroll-node,
+.main-view-container__scroll-node-child,
+.main-nowPlayingBar-nowPlayingBar,
+.main-nowPlayingBar-container,
+.main-buddyFeed-container,
+.main-home-home,
+.main-home-content,
+.main-home-homeHeader,
+.main-home-filterChipsSection,
+.main-home-filterChipsContainer,
+.main-entityHeader-backgroundColor,
+.main-actionBarBackground-background,
+.x-actionBarBackground-background,
+.main-topBar-background,
+.main-topBar-overlay {
+	background: transparent !important;
+	background-color: transparent !important;
+	background-image: none !important;
+	border: 0;
+	box-shadow: none;
+}
+
+/* Page header gradient (Home, 1.3.4 has no mapped class): Spotify fades the playlist
+   colour into an opaque --spice-main, which leaves a hard edge over the glass */
+.main-view-container__scroll-node-child > main > div > div[style*="background-color"],
+.main-entityHeader-container > div[style*="background-color"] {
+	background: linear-gradient(rgba(var(--spice-rgb-button), 0.16), transparent) !important;
+}
+
+/* Dark noise overlay on top of the entity header colour */
+.main-entityHeader-container > div:not([style*="background-color"]) {
+	background-image: none !important;
+}
+
+/* Same opaque fade below entity headers (profile, playlist, album action bar) */
+.main-view-container__scroll-node-child > main > section > div > div[style*="background-color"] {
+	background: transparent !important;
+}
+
+/* Sticky bar that fades in while scrolling: Spotify fills it with the page colour.
+   Its blur can't see the blobs behind the panel, so tint it to match the panel instead */
+.Root__main-view div[style*="--background-base"] {
+	background: var(--glass-sheen), rgba(var(--spice-rgb-tab-active), 0.6) !important;
+	backdrop-filter: var(--glass-blur);
+	-webkit-backdrop-filter: var(--glass-blur);
+	border-bottom: 1px solid var(--glass-border-soft);
+}
+
+/* Sticky top bar inside the main view: frosted strip instead of a solid block */
+.main-topBar-background,
+.main-home-filterChipsSectionActive {
+	backdrop-filter: var(--glass-blur);
+	-webkit-backdrop-filter: var(--glass-blur);
+}
+
+/* Space between macOS traffic lights and back/forward buttons */
+.main-globalNav-historyButtonsContainer,
+.main-globalNav-historyButtons {
+	margin-left: 24px;
+	gap: 8px;
+}
+
+.main-globalNav-historyButtons button,
+.main-globalNav-searchContainer > button {
+	background: var(--glass-fill) !important;
+	border: 1px solid var(--glass-border-soft);
+	backdrop-filter: var(--glass-blur);
+	-webkit-backdrop-filter: var(--glass-blur);
+}
+
+/* Search bar */
+.main-globalNav-searchInputContainer input,
+.x-searchInput-searchInputInput {
+	background: var(--glass-fill) !important;
+	border: 1px solid var(--glass-border) !important;
+	border-radius: 999px !important;
+	color: var(--spice-text) !important;
+	backdrop-filter: var(--glass-blur);
+	-webkit-backdrop-filter: var(--glass-blur);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.main-globalNav-searchInputContainer input:focus,
+.x-searchInput-searchInputInput:focus {
+	border-color: rgba(var(--spice-rgb-button), 0.8) !important;
+	box-shadow: 0 0 0 3px rgba(var(--spice-rgb-button), 0.25);
+}
+
+/* Filter chips (All / Music / Podcasts, Playlists / Artists) */
+.e-10860-legacy-chip__inner {
+	background: transparent !important;
+	color: inherit !important;
+}
+
+.e-10860-legacy-chip {
+	border-radius: 999px;
+	background: var(--glass-fill) !important;
+	border: 1px solid var(--glass-border-soft) !important;
+	color: var(--spice-text) !important;
+	transition:
+		background 0.2s ease,
+		border-color 0.2s ease;
+}
+
+.e-10860-legacy-chip:hover {
+	background: var(--glass-fill-hover) !important;
+}
+
+.e-10860-legacy-chip--selected,
+.e-10860-legacy-chip--selected:hover {
+	background: rgba(var(--spice-rgb-button), 0.85) !important;
+	border-color: rgba(var(--spice-rgb-button-active), 0.9) !important;
+	color: #fff !important;
+}
+
+/* Home shortcut tiles */
+.view-homeShortcutsGrid-shortcut {
+	background: var(--glass-fill) !important;
+	border: 1px solid var(--glass-border-soft);
+	border-radius: 10px;
+	overflow: hidden;
+	backdrop-filter: var(--glass-blur);
+	-webkit-backdrop-filter: var(--glass-blur);
+	transition:
+		background 0.2s ease,
+		border-color 0.2s ease;
+}
+
+.view-homeShortcutsGrid-shortcut:hover {
+	background: rgba(var(--spice-rgb-button), 0.18) !important;
+	border-color: rgba(var(--spice-rgb-button), 0.45);
+}
+
+/* Cards */
+.main-card-card {
+	background: var(--glass-fill) !important;
+	border: 1px solid var(--glass-border-soft);
+	border-radius: var(--glass-radius);
+	transition:
+		background 0.2s ease,
+		transform 0.2s ease,
+		border-color 0.2s ease,
+		box-shadow 0.2s ease;
+}
+
+.main-card-card:hover {
+	background: rgba(var(--spice-rgb-button), 0.14) !important;
+	border-color: rgba(var(--spice-rgb-button), 0.4);
+	box-shadow: 0 8px 24px rgba(var(--spice-rgb-button), 0.2);
+	transform: translateY(-3px);
+}
+
+.main-cardImage-imageWrapper {
+	background-color: transparent;
+	border-radius: 10px;
+}
+
+/* Library list items */
+.main-yourLibraryX-listItem > div {
+	border-radius: 10px;
+}
+
+.main-yourLibraryX-listItem > div:hover {
+	background: var(--glass-fill-hover) !important;
+}
+
+/* Track rows */
+.main-trackList-trackListRow {
+	border-radius: 8px;
+}
+
+.main-trackList-trackListRow:hover,
+.main-trackList-trackListRow:focus-within {
+	background: var(--glass-fill-hover) !important;
+}
+
+.main-trackList-trackListRow.main-trackList-selected {
+	background: rgba(var(--spice-rgb-button), 0.2) !important;
+}
+
+/* Menus and modals */
+.main-contextMenu-menu,
+.GenericModal,
+.main-trackCreditsModal-container {
+	background: var(--glass-sheen), var(--glass-tint-strong) !important;
+	backdrop-filter: var(--glass-blur);
+	-webkit-backdrop-filter: var(--glass-blur);
+	border: 1px solid var(--glass-border);
+	border-radius: 12px;
+	box-shadow: var(--glass-shadow);
+}
+
+.main-contextMenu-menuItemButton:hover,
+.main-contextMenu-menuItemButton:focus {
+	background: rgba(var(--spice-rgb-button), 0.22) !important;
+}
+
+/* Play button glow */
+.main-playButton-PlayButton.main-playButton-primary,
+.main-playPauseButton-button {
+	color: #fff;
+	box-shadow: 0 0 20px rgba(var(--spice-rgb-button), 0.6);
+}
+
+/* Progress & volume bars */
+.progress-bar {
+	--bg-color: rgba(255, 255, 255, 0.14);
+	--fg-color: var(--spice-button);
+}
+
+.progress-bar:hover {
+	--fg-color: var(--spice-button-active);
+}
+
+/* Album art */
+.main-nowPlayingWidget-coverArt img,
+.cover-art {
+	border-radius: 8px;
+}
+
+/* Entity header (playlist/album/artist) */
+.main-entityHeader-backgroundColor,
+.main-entityHeader-overlay {
+	background: linear-gradient(rgba(var(--spice-rgb-button), 0.22), transparent) !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar-thumb,
+.os-scrollbar-handle {
+	background: rgba(var(--spice-rgb-button), 0.35) !important;
+	border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover,
+.os-scrollbar-handle:hover {
+	background: rgba(var(--spice-rgb-button), 0.6) !important;
+}
